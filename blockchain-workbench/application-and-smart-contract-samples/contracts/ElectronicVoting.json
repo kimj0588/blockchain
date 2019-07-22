@@ -1,0 +1,414 @@
+{
+    "ApplicationName": "ElectronicVoting",
+    "DisplayName": "Electronic Voting",
+    "Description": "Introduction to a voting app that is governed by the principles of Blockchains",
+    "ApplicationRoles": [
+      {
+        "Name": "Voter",
+        "Description": "A persons that casts the vote"
+      },
+      {
+        "Name": "Physical_Verifier",
+        "Description": "To check if the person is physically present there"
+      },
+      {
+        "Name": "Biometric_Verifier",
+        "Description": "To check for biometrics for the individual"
+      },
+      {
+        "Name": "AadharandVoterId_Verifier",
+        "Description": "To scan and verify Aadhar based on voterId"
+      },
+      {
+        "Name": "Timeout_Checker",
+        "Description": "To check if the voting time has ran out"
+      }
+    ],
+    "Workflows": [
+      {
+        "Name": "ElectronicVoting",
+        "DisplayName": "Electronic_Voting",
+        "Description": "Handles the business logic for the Electronic Voting",
+        "Initiators": [ "Voter" ],
+        "StartState":  "ActiveVoter",
+        "Properties": [
+          {
+            "Name": "State",
+            "DisplayName": "State",
+            "Description": "Holds the state of the contract",
+            "Type": {
+              "Name": "state"
+            }
+          },
+          {
+            "Name": "Description",
+            "DisplayName": "Description",
+            "Description": "Describes the voter and vote being casted out",
+            "Type": {
+              "Name": "string"
+            }
+          }
+        ],
+        "Constructor": {
+          "Parameters": [
+            {
+              "Name": "description",
+              "Description": "The description of the voter",
+              "DisplayName": "Description",
+              "Type": {
+                "Name": "string"
+              }
+            },
+            {
+              "Name": "name",
+              "Description": "Name of the voter",
+              "DisplayName": "Name",
+              "Type": {
+                "Name": "string"
+              }
+            },
+            {
+              "Name": "dob",
+              "Description": "DOB of the voter",
+              "DisplayName": "DOB",
+              "Type": {
+                "Name": "string"
+              }
+            },
+            {
+              "Name": "aadhar",
+              "Description": "Aadhar Number of the voter",
+              "DisplayName": "Aadhar",
+              "Type": {
+                "Name": "string"
+              }
+            },
+            {
+              "Name": "voterid",
+              "Description": "VoterId Number",
+              "DisplayName": "VID",
+              "Type": {
+                "Name": "string"
+              }
+            },
+            {
+              "Name": "starttime",
+              "Description": "Time till Timeout occurs",
+              "DisplayName": "TIMER",
+              "Type": {
+                "Name": "string"
+              }
+            }
+          ]
+        },
+        "Functions": [
+          {
+            "Name": "Modify",
+            "DisplayName": "Modify",
+            "Description": "Modify the details of the voter",
+            "Parameters": [
+              {
+                "Name": "aadhar",
+                "Description": "Aadhar Number of the voter",
+                "DisplayName": "Aadhar",
+                "Type": {
+                  "Name": "string"
+                }
+              },
+              {
+                "Name": "name",
+                "Description": "Name of the voter",
+                "DisplayName": "Name",
+                "Type": {
+                  "Name": "string"
+                }
+              },
+              {
+                "Name": "dob",
+                "Description": "DOB of the voter",
+                "DisplayName": "DOB",
+                "Type": {
+                  "Name": "string"
+                }
+              },
+              {
+                "Name": "voterid",
+                "Description": "VoterId Number",
+                "DisplayName": "VID",
+                "Type": {
+                  "Name": "string"
+                }
+              }
+            ]
+          },
+          
+          {
+            "Name": "physicalValidator",
+            "DisplayName": "Physical Validator",
+            "Description": "verifies the physical presence of the voter",
+            "Parameters": [
+              {
+                "Name": "InstanceVoter",
+                "Description": "Current Voter",
+                "DisplayName": "Voter",
+                "Type": {
+                  "Name": "Voter"
+                }
+              },
+              {
+                "Name": "InstancePhysical_Verifier",
+                "Description": "Specify a user to verify details",
+                "DisplayName": "Physical Verifier",
+                "Type": {
+                  "Name": "Physical_Verifier"
+                }
+              },
+              {
+                "Name": "name",
+                "Description": "Name of the voter",
+                "DisplayName": "Name",
+                "Type": {
+                  "Name": "string"
+                }
+              },
+              {
+                "Name": "dob",
+                "Description": "DOB of the voter",
+                "DisplayName": "DOB",
+                "Type": {
+                  "Name": "string"
+                }
+              },
+              {
+                "Name": "aadhar",
+                "Description": "Aadhar Number of the voter",
+                "DisplayName": "Aadhar",
+                "Type": {
+                  "Name": "string"
+                }
+              },
+              {
+                "Name": "voterid",
+                "Description": "VoterId Number",
+                "DisplayName": "VID",
+                "Type": {
+                  "Name": "string"
+                }
+              }
+            ]
+          },
+          {
+            "Name": "BiometricValidator",
+            "DisplayName": "Biometric Validator",
+            "Description": "verifies the biometric of the user",
+            "Parameters": [
+              {
+              
+                "Name": "InstanceVoter",
+                "Description": "Current Voter",
+                "DisplayName": "Voter",
+                "Type": {
+                  "Name": "Voter"
+                }
+              }
+            ]
+          },
+          {
+            "Name": "AadharScan",
+            "DisplayName": "Scan",
+            "Description": "Scans user Aadhar Card",
+            "Parameters": [
+              {
+                "Name": "voter",
+                "Description": "Current Voter",
+                "DisplayName": "Voter",
+                "Type": {
+                  "Name": "Voter"
+                }
+              },
+              {
+                "Name": "aadhar",
+                "Description": "Aadhar Number of the voter",
+                "DisplayName": "Aadhar",
+                "Type": {
+                  "Name": "string"
+                }
+              }
+            ]
+          },
+          {
+            "Name": "CastedVoteChecker",
+            "DisplayName": "Casted Vote Checker",
+            "Description": "Checks the nature of the vote casted",
+            "Parameters": [
+              {
+                "Name": "Party",
+                "Description": "Party Voted for",
+                "DisplayName": "CAST",
+                "Type": {
+                  "Name": "string"
+                }
+              }
+            ]
+          },
+          {
+            "Name": "TimeoutChecker",
+            "DisplayName": "TimeOut Checker",
+            "Description": "Tells whether the voting time expired",
+            "Parameters": [
+              {
+                "Name": "startTime",
+                "Description": "Time when voter starts the biometric",
+                "DisplayName": "TIMER_START",
+                "Type": {
+                  "Name": "string"
+                }
+              },
+              {
+                "Name": "MAX_TIME",
+                "Description": "Max Time",
+                "DisplayName": "TIMER_END",
+                "Type": {
+                  "Name": "string"
+                }
+              }
+            ]
+          }
+        ],
+        "States": [
+          {
+            "Name": "ActiveVoter",
+            "DisplayName": "Active Voter",
+            "Description": "The initial state of the electronic Voting system",
+            "PercentComplete": 20,
+            "Style": "Success",
+            "Transitions": [
+              {
+                "AllowedRoles": [],
+                "AllowedInstanceRoles":[],
+                "Description": "Terminates the Voting Procedure",
+                "Function": "TimeoutChecker",
+                "NextStates": ["TimeOut"],
+                "DisplayName": "Timeout State"
+              },
+              {
+                "AllowedRoles": [ "Physical_Verifier" ],
+                "AllowedInstanceRoles": [],
+                "Description": "Verifies the initial details",
+                "Function": "physicalValidator",
+                "NextStates": [ "Person_Verified" ],
+                "DisplayName": "Person Verifier"
+              }
+            ]
+          },
+          {
+            "Name": "Person_Verified",
+            "DisplayName": "Person details have been verified",
+            "Description": "Now Person has to do biometrics",
+            "PercentComplete": 40,
+            "Style": "Success",
+            "Transitions": [
+              {
+                "AllowedRoles": ["Biometric_Verifier"],
+                "AllowedInstanceRoles": [],
+                "Description": "Accept the previous details and do biometrics",
+                "Function": "BiometricValidator",
+                "NextStates": [ "Biometrics_Verified" ],
+                "DisplayName": "Biometric Verifier"
+              },
+              {
+                "AllowedRoles": [],
+                "AllowedInstanceRoles":[],
+                "Description": "Terminates the Voting Procedure",
+                "Function": "TimeoutChecker",
+                "NextStates": ["TimeOut"],
+                "DisplayName": "Timeout State"
+              }
+            ]
+          },
+          {
+            "Name": "Biometrics_Verified",
+            "DisplayName": "Biometrics Verified",
+            "Description": "Accept the previous details and do scan",
+            "PercentComplete": 60,
+            "Style": "Success",
+            "Transitions": [
+              {
+                "AllowedRoles": ["AadharandVoterId_Verifier"],
+                "AllowedInstanceRoles": [],
+                "Description": "AadharandVoterId Verifier",
+                "Function": "AadharScan",
+                "NextStates": [ "Aadhar_Verified" ],
+                "DisplayName": "Aadhar and VoterId Verifier"
+              },
+              {
+                "AllowedRoles": [],
+                "AllowedInstanceRoles":[],
+                "Description": "Terminates the Voting Procedure",
+                "Function": "TimeoutChecker",
+                "NextStates": ["TimeOut"],
+                "DisplayName": "Timeout State"
+              }
+            ]
+          },
+          {
+            "Name": "Aadhar_Verified",
+            "DisplayName": "Aadhar Scan",
+            "PercentComplete": 80,
+            "Style": "Success",
+            "Transitions": [
+              {
+                "AllowedRoles": ["Voter"],
+                "AllowedInstanceRoles": [],
+                "Description": "Vote Casting",
+                "Function": "CastedVoteChecker",
+                "NextStates": ["Vote_Casted"],
+                "DisplayName": "Vote"
+              },
+              {
+                "AllowedRoles": [],
+                "AllowedInstanceRoles":[],
+                "Description": "Terminates the Voting Procedure",
+                "Function": "TimeoutChecker",
+                "NextStates": ["TimeOut"],
+                "DisplayName": "Timeout State"
+              }
+            ]
+          },
+          {
+            "Name": "TimeOut",
+            "DisplayName": "Aadhar Scan",
+            "PercentComplete": 100,
+            "Style": "Success",
+            "Transitions": [
+              {
+                "AllowedRoles": ["Voter"],
+                "AllowedInstanceRoles": [],
+                "Description": "Vote Casting",
+                "Function": "CastedVoteChecker",
+                "NextStates": ["Vote_Casted"],
+                "DisplayName": "Vote"
+              },
+              {
+                "AllowedRoles": [],
+                "AllowedInstanceRoles":[],
+                "Description": "Terminates the Voting Procedure",
+                "Function": "TimeoutChecker",
+                "NextStates": ["TimeOut"],
+                "DisplayName": "Timeout State"
+              }
+            ]
+          },
+          {
+            "Name": "Vote_Casted",
+            "DisplayName": "...Done",
+            "PercentComplete": 100,
+            "Style": "Success",
+            "Transitions": [
+      
+            ]
+          }
+        ]
+      }
+    ]
+  }
